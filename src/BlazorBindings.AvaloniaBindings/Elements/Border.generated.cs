@@ -26,6 +26,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public global::Avalonia.Media.IBrush Background { get; set; }
         /// <summary>
+        /// Gets or sets how the background is drawn relative to the border.
+        /// </summary>
+        [Parameter] public global::Avalonia.Media.BackgroundSizing? BackgroundSizing { get; set; }
+        /// <summary>
         /// Gets or sets a brush with which to paint the border.
         /// </summary>
         [Parameter] public global::Avalonia.Media.IBrush BorderBrush { get; set; }
@@ -55,6 +59,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         Background = (global::Avalonia.Media.IBrush)value;
                         NativeControl.Background = Background;
+                    }
+                    break;
+                case nameof(BackgroundSizing):
+                    if (!Equals(BackgroundSizing, value))
+                    {
+                        BackgroundSizing = (global::Avalonia.Media.BackgroundSizing?)value;
+                        NativeControl.BackgroundSizing = BackgroundSizing ?? (global::Avalonia.Media.BackgroundSizing)AC.Border.BackgroundSizingProperty.GetDefaultValue(AC.Border.BackgroundSizingProperty.OwnerType);
                     }
                     break;
                 case nameof(BorderBrush):

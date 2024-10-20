@@ -29,6 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets the animation played when content appears and disappears.
         /// </summary>
         [Parameter] public global::Avalonia.Animation.IPageTransition PageTransition { get; set; }
+        [Parameter] public EventCallback<AC.TransitionCompletedEventArgs> OnTransitionCompleted { get; set; }
 
         public new AC.TransitioningContentControl NativeControl => (AC.TransitioningContentControl)((AvaloniaObject)this).NativeControl;
 
@@ -50,6 +51,16 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         PageTransition = (global::Avalonia.Animation.IPageTransition)value;
                         NativeControl.PageTransition = PageTransition;
+                    }
+                    break;
+                case nameof(OnTransitionCompleted):
+                    if (!Equals(OnTransitionCompleted, value))
+                    {
+                        void NativeControlTransitionCompleted(object sender, AC.TransitionCompletedEventArgs e) => InvokeEventCallback(OnTransitionCompleted, e);
+
+                        OnTransitionCompleted = (EventCallback<AC.TransitionCompletedEventArgs>)value;
+                        NativeControl.TransitionCompleted -= NativeControlTransitionCompleted;
+                        NativeControl.TransitionCompleted += NativeControlTransitionCompleted;
                     }
                     break;
 

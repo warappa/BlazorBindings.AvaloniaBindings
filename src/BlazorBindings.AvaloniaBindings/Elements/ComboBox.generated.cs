@@ -42,6 +42,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public string PlaceholderText { get; set; }
         /// <summary>
+        /// Gets or sets the DataTemplate used to display the selected item. This has a higher priority than <see cref="P:Avalonia.Controls.ItemsControl.ItemTemplate" /> if set.
+        /// </summary>
+        [Parameter] public AC.Templates.IDataTemplate SelectionBoxItemTemplate { get; set; }
+        /// <summary>
         /// Gets or sets the vertical alignment of the content within the control.
         /// </summary>
         [Parameter] public global::Avalonia.Layout.VerticalAlignment? VerticalContentAlignment { get; set; }
@@ -89,6 +93,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         PlaceholderText = (string)value;
                         NativeControl.PlaceholderText = PlaceholderText;
+                    }
+                    break;
+                case nameof(SelectionBoxItemTemplate):
+                    if (!Equals(SelectionBoxItemTemplate, value))
+                    {
+                        SelectionBoxItemTemplate = (AC.Templates.IDataTemplate)value;
+                        NativeControl.SelectionBoxItemTemplate = SelectionBoxItemTemplate;
                     }
                     break;
                 case nameof(VerticalContentAlignment):

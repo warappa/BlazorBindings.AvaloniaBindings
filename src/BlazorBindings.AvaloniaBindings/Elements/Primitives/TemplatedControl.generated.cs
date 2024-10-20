@@ -28,6 +28,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         /// </summary>
         [Parameter] public global::Avalonia.Media.IBrush Background { get; set; }
         /// <summary>
+        /// Gets or sets how the control's background is drawn relative to the control's border.
+        /// </summary>
+        [Parameter] public global::Avalonia.Media.BackgroundSizing? BackgroundSizing { get; set; }
+        /// <summary>
         /// Gets or sets the brush used to draw the control's border.
         /// </summary>
         [Parameter] public global::Avalonia.Media.IBrush BorderBrush { get; set; }
@@ -43,6 +47,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         /// Gets or sets the font family used to draw the control's text.
         /// </summary>
         [Parameter] public global::Avalonia.Media.FontFamily FontFamily { get; set; }
+        /// <summary>
+        /// Gets or sets the font features turned on/off.
+        /// </summary>
+        [Parameter] public global::Avalonia.Media.FontFeatureCollection FontFeatures { get; set; }
         /// <summary>
         /// Gets or sets the size of the control's text in points.
         /// </summary>
@@ -88,6 +96,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
                         NativeControl.Background = Background;
                     }
                     break;
+                case nameof(BackgroundSizing):
+                    if (!Equals(BackgroundSizing, value))
+                    {
+                        BackgroundSizing = (global::Avalonia.Media.BackgroundSizing?)value;
+                        NativeControl.BackgroundSizing = BackgroundSizing ?? (global::Avalonia.Media.BackgroundSizing)ACP.TemplatedControl.BackgroundSizingProperty.GetDefaultValue(ACP.TemplatedControl.BackgroundSizingProperty.OwnerType);
+                    }
+                    break;
                 case nameof(BorderBrush):
                     if (!Equals(BorderBrush, value))
                     {
@@ -114,6 +129,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
                     {
                         FontFamily = (global::Avalonia.Media.FontFamily)value;
                         NativeControl.FontFamily = FontFamily;
+                    }
+                    break;
+                case nameof(FontFeatures):
+                    if (!Equals(FontFeatures, value))
+                    {
+                        FontFeatures = (global::Avalonia.Media.FontFeatureCollection)value;
+                        NativeControl.FontFeatures = FontFeatures;
                     }
                     break;
                 case nameof(FontSize):

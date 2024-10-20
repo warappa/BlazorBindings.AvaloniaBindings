@@ -21,6 +21,9 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
+        /// <summary>
+        /// Gets or sets the name that specifies which RadioButton controls are mutually exclusive.
+        /// </summary>
         [Parameter] public string GroupName { get; set; }
 
         public new AC.RadioButton NativeControl => (AC.RadioButton)((AvaloniaObject)this).NativeControl;

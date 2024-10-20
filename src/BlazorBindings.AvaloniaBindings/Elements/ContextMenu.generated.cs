@@ -21,6 +21,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             RegisterAdditionalHandlers();
         }
 
+        [Parameter] public AC.Primitives.PopupPositioning.CustomPopupPlacementCallback CustomPopupPlacementCallback { get; set; }
         [Parameter] public double? HorizontalOffset { get; set; }
         [Parameter] public AC.PlacementMode? Placement { get; set; }
         [Parameter] public AC.Primitives.PopupPositioning.PopupAnchor? PlacementAnchor { get; set; }
@@ -41,6 +42,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             switch (name)
             {
+                case nameof(CustomPopupPlacementCallback):
+                    if (!Equals(CustomPopupPlacementCallback, value))
+                    {
+                        CustomPopupPlacementCallback = (AC.Primitives.PopupPositioning.CustomPopupPlacementCallback)value;
+                        NativeControl.CustomPopupPlacementCallback = CustomPopupPlacementCallback;
+                    }
+                    break;
                 case nameof(HorizontalOffset):
                     if (!Equals(HorizontalOffset, value))
                     {

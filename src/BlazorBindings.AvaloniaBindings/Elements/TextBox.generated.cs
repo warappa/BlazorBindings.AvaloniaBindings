@@ -29,6 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets a value that determins whether the TextBox allows and displays tabs
         /// </summary>
         [Parameter] public bool? AcceptsTab { get; set; }
+        [Parameter] public TimeSpan? CaretBlinkInterval { get; set; }
         /// <summary>
         /// Gets or sets a brush that is used for the text caret
         /// </summary>
@@ -66,13 +67,17 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public double? LineHeight { get; set; }
         /// <summary>
-        /// Gets or sets the maximum number of visible lines.
+        /// Gets or sets the maximum number of characters that the <see cref="T:Avalonia.Controls.TextBox" /> can accept. This constraint only applies for manually entered (user-inputted) text.
         /// </summary>
         [Parameter] public int? MaxLength { get; set; }
         /// <summary>
-        /// Gets or sets the maximum number of lines the TextBox can contain
+        /// Gets or sets the maximum number of visible lines to size to.
         /// </summary>
         [Parameter] public int? MaxLines { get; set; }
+        /// <summary>
+        /// Gets or sets the minimum number of visible lines to size to.
+        /// </summary>
+        [Parameter] public int? MinLines { get; set; }
         /// <summary>
         /// Gets or sets which characters are inserted when Enter is pressed. Default: <see cref="P:System.Environment.NewLine" />
         /// </summary>
@@ -161,6 +166,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.AcceptsTab = AcceptsTab ?? (bool)AC.TextBox.AcceptsTabProperty.GetDefaultValue(AC.TextBox.AcceptsTabProperty.OwnerType);
                     }
                     break;
+                case nameof(CaretBlinkInterval):
+                    if (!Equals(CaretBlinkInterval, value))
+                    {
+                        CaretBlinkInterval = (TimeSpan?)value;
+                        NativeControl.CaretBlinkInterval = CaretBlinkInterval ?? (TimeSpan)AC.TextBox.CaretBlinkIntervalProperty.GetDefaultValue(AC.TextBox.CaretBlinkIntervalProperty.OwnerType);
+                    }
+                    break;
                 case nameof(CaretBrush):
                     if (!Equals(CaretBrush, value))
                     {
@@ -236,6 +248,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         MaxLines = (int?)value;
                         NativeControl.MaxLines = MaxLines ?? (int)AC.TextBox.MaxLinesProperty.GetDefaultValue(AC.TextBox.MaxLinesProperty.OwnerType);
+                    }
+                    break;
+                case nameof(MinLines):
+                    if (!Equals(MinLines, value))
+                    {
+                        MinLines = (int?)value;
+                        NativeControl.MinLines = MinLines ?? (int)AC.TextBox.MinLinesProperty.GetDefaultValue(AC.TextBox.MinLinesProperty.OwnerType);
                     }
                     break;
                 case nameof(NewLine):

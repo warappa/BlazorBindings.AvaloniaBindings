@@ -31,6 +31,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Documents
         /// </summary>
         [Parameter] public global::Avalonia.Media.FontFamily FontFamily { get; set; }
         /// <summary>
+        /// Gets or sets the font features.
+        /// </summary>
+        [Parameter] public global::Avalonia.Media.FontFeatureCollection FontFeatures { get; set; }
+        /// <summary>
         /// Gets or sets the font size.
         /// </summary>
         [Parameter] public double? FontSize { get; set; }
@@ -70,6 +74,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Documents
                     {
                         FontFamily = (global::Avalonia.Media.FontFamily)value;
                         NativeControl.FontFamily = FontFamily;
+                    }
+                    break;
+                case nameof(FontFeatures):
+                    if (!Equals(FontFeatures, value))
+                    {
+                        FontFeatures = (global::Avalonia.Media.FontFeatureCollection)value;
+                        NativeControl.FontFeatures = FontFeatures;
                     }
                     break;
                 case nameof(FontSize):

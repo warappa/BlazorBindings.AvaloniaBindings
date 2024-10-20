@@ -22,13 +22,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Shapes
             RegisterAdditionalHandlers();
         }
 
-        /// <summary>
-        /// Gets or sets the radius on the X-axis used to round the corners of the rectangle. Corner radii are represented by an ellipse so this is the X-axis width of the ellipse.
-        /// </summary>
         [Parameter] public double? RadiusX { get; set; }
-        /// <summary>
-        /// Gets or sets the radius on the Y-axis used to round the corners of the rectangle. Corner radii are represented by an ellipse so this is the Y-axis height of the ellipse.
-        /// </summary>
         [Parameter] public double? RadiusY { get; set; }
 
         public new ACS.Rectangle NativeControl => (ACS.Rectangle)((AvaloniaObject)this).NativeControl;

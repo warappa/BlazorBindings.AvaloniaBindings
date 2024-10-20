@@ -17,7 +17,7 @@ using Avalonia.Controls.Primitives;
 
 [assembly: GenerateComponent(typeof(Application))]
 [assembly: GenerateComponent(typeof(Animatable))]
-[assembly: GenerateComponent(typeof(AttachedLayout))]
+//[assembly: GenerateComponent(typeof(AttachedLayout))]
 [assembly: GenerateComponent(typeof(AutoCompleteBox),
     ContentProperties = new[]
     {
@@ -128,11 +128,11 @@ using Avalonia.Controls.Primitives;
         //nameof(ListView.GroupShortNameBinding)
         }
     )]
-[assembly: GenerateComponent(typeof(ItemsRepeater),
-    ContentProperties = new[]
-    {
-        nameof(ItemsRepeater.ItemTemplate)
-    })]
+//[assembly: GenerateComponent(typeof(ItemsRepeater),
+//    ContentProperties = new[]
+//    {
+//        nameof(ItemsRepeater.ItemTemplate)
+//    })]
 [assembly: GenerateComponent(typeof(Label))]
 [assembly: GenerateComponent(typeof(Layoutable))]
 [assembly: GenerateComponent(typeof(LayoutTransformControl))]
@@ -207,7 +207,7 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(Span))]
 [assembly: GenerateComponent(typeof(SplitButton))]
 [assembly: GenerateComponent(typeof(StackPanel))]
-[assembly: GenerateComponent(typeof(StackLayout))]
+//[assembly: GenerateComponent(typeof(StackLayout))]
 [assembly: GenerateComponent(typeof(StyledElement),
     Exclude = new[]
     {
@@ -256,7 +256,7 @@ using Avalonia.Controls.Primitives;
 [assembly: GenerateComponent(typeof(TransitioningContentControl))]
 [assembly: GenerateComponent(typeof(UserControl))]
 [assembly: GenerateComponent(typeof(Viewbox))]
-[assembly: GenerateComponent(typeof(VirtualizingLayout))]
+//[assembly: GenerateComponent(typeof(VirtualizingLayout))]
 
 [assembly: GenerateComponent(typeof(Visual),
 

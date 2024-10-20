@@ -33,6 +33,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets the <see cref="T:Avalonia.Controls.Primitives.FlyoutBase" /> that is shown when the secondary part is pressed.
         /// </summary>
         [Parameter] public AC.Primitives.FlyoutBase Flyout { get; set; }
+        /// <summary>
+        /// Gets or sets an <see cref="T:Avalonia.Input.KeyGesture" /> associated with this control
+        /// </summary>
+        [Parameter] public global::Avalonia.Input.KeyGesture HotKey { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnClick { get; set; }
 
         public new AC.SplitButton NativeControl => (AC.SplitButton)((AvaloniaObject)this).NativeControl;
@@ -62,6 +66,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         Flyout = (AC.Primitives.FlyoutBase)value;
                         NativeControl.Flyout = Flyout;
+                    }
+                    break;
+                case nameof(HotKey):
+                    if (!Equals(HotKey, value))
+                    {
+                        HotKey = (global::Avalonia.Input.KeyGesture)value;
+                        NativeControl.HotKey = HotKey;
                     }
                     break;
                 case nameof(OnClick):

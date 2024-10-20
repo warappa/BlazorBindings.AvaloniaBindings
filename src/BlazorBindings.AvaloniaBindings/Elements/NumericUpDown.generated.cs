@@ -46,6 +46,14 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public decimal? Increment { get; set; }
         /// <summary>
+        /// Gets or sets custom content that is positioned on the left side of the text layout box
+        /// </summary>
+        [Parameter] public object InnerLeftContent { get; set; }
+        /// <summary>
+        /// Gets or sets custom content that is positioned on the right side of the text layout box
+        /// </summary>
+        [Parameter] public object InnerRightContent { get; set; }
+        /// <summary>
         /// Gets or sets if the control is read only.
         /// </summary>
         [Parameter] public bool? IsReadOnly { get; set; }
@@ -144,6 +152,20 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         Increment = (decimal?)value;
                         NativeControl.Increment = Increment ?? (decimal)AC.NumericUpDown.IncrementProperty.GetDefaultValue(AC.NumericUpDown.IncrementProperty.OwnerType);
+                    }
+                    break;
+                case nameof(InnerLeftContent):
+                    if (!Equals(InnerLeftContent, value))
+                    {
+                        InnerLeftContent = (object)value;
+                        NativeControl.InnerLeftContent = InnerLeftContent;
+                    }
+                    break;
+                case nameof(InnerRightContent):
+                    if (!Equals(InnerRightContent, value))
+                    {
+                        InnerRightContent = (object)value;
+                        NativeControl.InnerRightContent = InnerRightContent;
                     }
                     break;
                 case nameof(IsReadOnly):

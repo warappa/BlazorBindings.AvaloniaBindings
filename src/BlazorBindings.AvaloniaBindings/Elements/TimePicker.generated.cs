@@ -30,9 +30,17 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public int? MinuteIncrement { get; set; }
         /// <summary>
+        /// Gets or sets the second increment in the picker
+        /// </summary>
+        [Parameter] public int? SecondIncrement { get; set; }
+        /// <summary>
         /// Gets or sets the selected time. Can be null.
         /// </summary>
         [Parameter] public Nullable<TimeSpan> SelectedTime { get; set; }
+        /// <summary>
+        /// Gets or sets the use seconds switch, either true or false
+        /// </summary>
+        [Parameter] public bool? UseSeconds { get; set; }
         [Parameter] public EventCallback<Nullable<TimeSpan>> SelectedTimeChanged { get; set; }
 
         public new AC.TimePicker NativeControl => (AC.TimePicker)((AvaloniaObject)this).NativeControl;
@@ -57,11 +65,25 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.MinuteIncrement = MinuteIncrement ?? (int)AC.TimePicker.MinuteIncrementProperty.GetDefaultValue(AC.TimePicker.MinuteIncrementProperty.OwnerType);
                     }
                     break;
+                case nameof(SecondIncrement):
+                    if (!Equals(SecondIncrement, value))
+                    {
+                        SecondIncrement = (int?)value;
+                        NativeControl.SecondIncrement = SecondIncrement ?? (int)AC.TimePicker.SecondIncrementProperty.GetDefaultValue(AC.TimePicker.SecondIncrementProperty.OwnerType);
+                    }
+                    break;
                 case nameof(SelectedTime):
                     if (!Equals(SelectedTime, value))
                     {
                         SelectedTime = (Nullable<TimeSpan>)value;
                         NativeControl.SelectedTime = SelectedTime;
+                    }
+                    break;
+                case nameof(UseSeconds):
+                    if (!Equals(UseSeconds, value))
+                    {
+                        UseSeconds = (bool?)value;
+                        NativeControl.UseSeconds = UseSeconds ?? (bool)AC.TimePicker.UseSecondsProperty.GetDefaultValue(AC.TimePicker.UseSecondsProperty.OwnerType);
                     }
                     break;
                 case nameof(SelectedTimeChanged):

@@ -20,7 +20,12 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
             RegisterAdditionalHandlers();
         }
 
+        [Parameter] public AC.Primitives.PopupPositioning.CustomPopupPlacementCallback CustomPopupPlacementCallback { get; set; }
         [Parameter] public double? HorizontalOffset { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether the event that closes the flyout is passed through to the parent window.
+        /// </summary>
+        [Parameter] public bool? OverlayDismissEventPassThrough { get; set; }
         /// <summary>
         /// Gets or sets an element that should receive pointer input events even when underneath the flyout's overlay.
         /// </summary>
@@ -44,11 +49,25 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Primitives
         {
             switch (name)
             {
+                case nameof(CustomPopupPlacementCallback):
+                    if (!Equals(CustomPopupPlacementCallback, value))
+                    {
+                        CustomPopupPlacementCallback = (AC.Primitives.PopupPositioning.CustomPopupPlacementCallback)value;
+                        NativeControl.CustomPopupPlacementCallback = CustomPopupPlacementCallback;
+                    }
+                    break;
                 case nameof(HorizontalOffset):
                     if (!Equals(HorizontalOffset, value))
                     {
                         HorizontalOffset = (double?)value;
                         NativeControl.HorizontalOffset = HorizontalOffset ?? (double)ACP.PopupFlyoutBase.HorizontalOffsetProperty.GetDefaultValue(ACP.PopupFlyoutBase.HorizontalOffsetProperty.OwnerType);
+                    }
+                    break;
+                case nameof(OverlayDismissEventPassThrough):
+                    if (!Equals(OverlayDismissEventPassThrough, value))
+                    {
+                        OverlayDismissEventPassThrough = (bool?)value;
+                        NativeControl.OverlayDismissEventPassThrough = OverlayDismissEventPassThrough ?? (bool)ACP.PopupFlyoutBase.OverlayDismissEventPassThroughProperty.GetDefaultValue(ACP.PopupFlyoutBase.OverlayDismissEventPassThroughProperty.OwnerType);
                     }
                     break;
                 case nameof(OverlayInputPassThroughElement):

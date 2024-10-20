@@ -29,6 +29,8 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets the selection state of the item.
         /// </summary>
         [Parameter] public bool? IsSelected { get; set; }
+        [Parameter] public EventCallback<bool?> IsExpandedChanged { get; set; }
+        [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnCollapsed { get; set; }
 
         public new AC.TreeViewItem NativeControl => (AC.TreeViewItem)((AvaloniaObject)this).NativeControl;
 
@@ -50,6 +52,31 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         IsSelected = (bool?)value;
                         NativeControl.IsSelected = IsSelected ?? (bool)AC.TreeViewItem.IsSelectedProperty.GetDefaultValue(AC.TreeViewItem.IsSelectedProperty.OwnerType);
+                    }
+                    break;
+                case nameof(IsExpandedChanged):
+                    if (!Equals(IsExpandedChanged, value))
+                    {
+                        void NativeControlExpanded(object sender, global::Avalonia.Interactivity.RoutedEventArgs e)
+                        {
+                            var value = NativeControl.IsExpanded is bool item ? item : default(bool?);
+                            IsExpanded = value;
+                            InvokeEventCallback(IsExpandedChanged, value);
+                        }
+
+                        IsExpandedChanged = (EventCallback<bool?>)value;
+                        NativeControl.Expanded -= NativeControlExpanded;
+                        NativeControl.Expanded += NativeControlExpanded;
+                    }
+                    break;
+                case nameof(OnCollapsed):
+                    if (!Equals(OnCollapsed, value))
+                    {
+                        void NativeControlCollapsed(object sender, global::Avalonia.Interactivity.RoutedEventArgs e) => InvokeEventCallback(OnCollapsed, e);
+
+                        OnCollapsed = (EventCallback<global::Avalonia.Interactivity.RoutedEventArgs>)value;
+                        NativeControl.Collapsed -= NativeControlCollapsed;
+                        NativeControl.Collapsed += NativeControlCollapsed;
                     }
                     break;
 

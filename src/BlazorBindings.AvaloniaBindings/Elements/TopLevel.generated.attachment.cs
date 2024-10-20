@@ -8,6 +8,18 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [System.Runtime.CompilerServices.ModuleInitializer]
         internal static void RegisterAdditionalHandlers()
         {
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TopLevel.AutoSafeAreaPadding",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(AC.TopLevel.AutoSafeAreaPaddingProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding((Avalonia.Controls.Control)element, (bool)Convert.ChangeType(value, typeof(bool)));
+                    }
+                });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TopLevel.SystemBarColor",
                 (element, value) => 
                 {
@@ -26,6 +38,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
     public static partial class TopLevelExtensions
     {
         /// <summary>
+        /// Defines the AutoSafeAreaPadding attached property.
+        /// </summary>
+        public static Control TopLevelAutoSafeAreaPadding(this Control element, bool value)
+        {
+            element.AttachedProperties["TopLevel.AutoSafeAreaPadding"] = value;
+        
+            return element;
+        }
+        /// <summary>
         /// Defines the SystemBarColor attached property.
         /// </summary>
         public static Control TopLevelSystemBarColor(this Control element, global::Avalonia.Media.SolidColorBrush value)
@@ -38,6 +59,11 @@ namespace BlazorBindings.AvaloniaBindings.Elements
 
     public class TopLevel_Attachment : NativeControlComponentBase, INonPhysicalChild, IContainerElementHandler
     {
+        /// <summary>
+        /// Defines the AutoSafeAreaPadding attached property.
+        /// </summary>
+        [Parameter] public bool AutoSafeAreaPadding { get; set; }
+
         /// <summary>
         /// Defines the SystemBarColor attached property.
         /// </summary>
@@ -54,6 +80,14 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                 var value = parameterValue.Value;
                 switch (parameterValue.Name)
                 {
+                    case nameof(AutoSafeAreaPadding):
+                    if (!Equals(AutoSafeAreaPadding, value))
+                    {
+                        AutoSafeAreaPadding = (bool)value;
+                        //NativeControl.AutoSafeAreaPaddingProperty = AutoSafeAreaPadding;
+                    }
+                    break;
+
                     case nameof(SystemBarColor):
                     if (!Equals(SystemBarColor, value))
                     {
@@ -73,6 +107,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         {
             if (parentElement is not null)
             {
+                if (AutoSafeAreaPadding == Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentElement.GetType()))
+                {
+                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty);
+                }
+                else
+                {
+                    Avalonia.Controls.TopLevel.SetAutoSafeAreaPadding((Avalonia.Controls.Control)parentElement, AutoSafeAreaPadding);
+                }
+                
                 if (SystemBarColor == Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentElement.GetType()))
                 {
                     ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.TopLevel.SystemBarColorProperty);
@@ -90,6 +133,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
+                AutoSafeAreaPadding = AutoSafeAreaPadding != default ? AutoSafeAreaPadding : Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentType);
                 SystemBarColor = SystemBarColor != default ? SystemBarColor : Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);
@@ -104,6 +148,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             var parentType = parentElement?.GetType();
             if (parentType is not null)
             {
+                AutoSafeAreaPadding = Avalonia.Controls.TopLevel.AutoSafeAreaPaddingProperty.GetDefaultValue(parentType);
                 SystemBarColor = Avalonia.Controls.TopLevel.SystemBarColorProperty.GetDefaultValue(parentType);
 
                 TryUpdateParent(parentElement);

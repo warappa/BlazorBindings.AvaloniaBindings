@@ -29,6 +29,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets the parameter to pass to the <see cref="P:Avalonia.Controls.MenuItem.Command" /> property of a <see cref="T:Avalonia.Controls.MenuItem" />.
         /// </summary>
         [Parameter] public object CommandParameter { get; set; }
+        [Parameter] public string GroupName { get; set; }
         /// <summary>
         /// Gets or sets an <see cref="T:Avalonia.Input.KeyGesture" /> associated with this control
         /// </summary>
@@ -41,6 +42,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets the input gesture that will be displayed in the menu item.
         /// </summary>
         [Parameter] public global::Avalonia.Input.KeyGesture InputGesture { get; set; }
+        [Parameter] public bool? IsChecked { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether the <see cref="T:Avalonia.Controls.MenuItem" /> is currently selected.
         /// </summary>
@@ -53,6 +55,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// Gets or sets a value that indicates the submenu that this <see cref="T:Avalonia.Controls.MenuItem" /> is within should not close when this item is clicked.
         /// </summary>
         [Parameter] public bool? StaysOpenOnClick { get; set; }
+        [Parameter] public AC.MenuItemToggleType? ToggleType { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnClick { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnPointerEnteredItem { get; set; }
         [Parameter] public EventCallback<global::Avalonia.Interactivity.RoutedEventArgs> OnPointerExitedItem { get; set; }
@@ -80,6 +83,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.CommandParameter = CommandParameter;
                     }
                     break;
+                case nameof(GroupName):
+                    if (!Equals(GroupName, value))
+                    {
+                        GroupName = (string)value;
+                        NativeControl.GroupName = GroupName;
+                    }
+                    break;
                 case nameof(HotKey):
                     if (!Equals(HotKey, value))
                     {
@@ -101,6 +111,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.InputGesture = InputGesture;
                     }
                     break;
+                case nameof(IsChecked):
+                    if (!Equals(IsChecked, value))
+                    {
+                        IsChecked = (bool?)value;
+                        NativeControl.IsChecked = IsChecked ?? (bool)AC.MenuItem.IsCheckedProperty.GetDefaultValue(AC.MenuItem.IsCheckedProperty.OwnerType);
+                    }
+                    break;
                 case nameof(IsSelected):
                     if (!Equals(IsSelected, value))
                     {
@@ -120,6 +137,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         StaysOpenOnClick = (bool?)value;
                         NativeControl.StaysOpenOnClick = StaysOpenOnClick ?? (bool)AC.MenuItem.StaysOpenOnClickProperty.GetDefaultValue(AC.MenuItem.StaysOpenOnClickProperty.OwnerType);
+                    }
+                    break;
+                case nameof(ToggleType):
+                    if (!Equals(ToggleType, value))
+                    {
+                        ToggleType = (AC.MenuItemToggleType?)value;
+                        NativeControl.ToggleType = ToggleType ?? (AC.MenuItemToggleType)AC.MenuItem.ToggleTypeProperty.GetDefaultValue(AC.MenuItem.ToggleTypeProperty.OwnerType);
                     }
                     break;
                 case nameof(OnClick):

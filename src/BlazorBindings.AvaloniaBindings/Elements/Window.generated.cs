@@ -26,6 +26,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// </summary>
         [Parameter] public bool? CanResize { get; set; }
         /// <summary>
+        /// Gets or sets a value indicating how the <see cref="E:Avalonia.Controls.Window.Closing" /> event behaves in the presence of child windows.
+        /// </summary>
+        [Parameter] public AC.WindowClosingBehavior? ClosingBehavior { get; set; }
+        /// <summary>
         /// Gets or Sets the <see cref="T:Avalonia.Platform.ExtendClientAreaChromeHints" /> that control how the chrome looks when the client area is extended.
         /// </summary>
         [Parameter] public global::Avalonia.Platform.ExtendClientAreaChromeHints? ExtendClientAreaChromeHints { get; set; }
@@ -88,6 +92,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         CanResize = (bool?)value;
                         NativeControl.CanResize = CanResize ?? (bool)AC.Window.CanResizeProperty.GetDefaultValue(AC.Window.CanResizeProperty.OwnerType);
+                    }
+                    break;
+                case nameof(ClosingBehavior):
+                    if (!Equals(ClosingBehavior, value))
+                    {
+                        ClosingBehavior = (AC.WindowClosingBehavior?)value;
+                        NativeControl.ClosingBehavior = ClosingBehavior ?? (AC.WindowClosingBehavior)AC.Window.ClosingBehaviorProperty.GetDefaultValue(AC.Window.ClosingBehaviorProperty.OwnerType);
                     }
                     break;
                 case nameof(ExtendClientAreaChromeHints):

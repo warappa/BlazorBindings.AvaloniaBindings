@@ -31,9 +31,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
         /// </summary>
         [Parameter] public global::Avalonia.RelativePoint? GradientOrigin { get; set; }
         /// <summary>
-        /// Gets or sets the horizontal and vertical radius of the outermost circle of the radial gradient.
+        /// Gets or sets the horizontal radius of the outermost circle of the radial gradient.
         /// </summary>
-        [Parameter] public double? Radius { get; set; }
+        [Parameter] public global::Avalonia.RelativeScalar? RadiusX { get; set; }
+        /// <summary>
+        /// Gets or sets the vertical radius of the outermost circle of the radial gradient.
+        /// </summary>
+        [Parameter] public global::Avalonia.RelativeScalar? RadiusY { get; set; }
 
         public new AM.RadialGradientBrush NativeControl => (AM.RadialGradientBrush)((AvaloniaObject)this).NativeControl;
 
@@ -57,11 +61,18 @@ namespace BlazorBindings.AvaloniaBindings.Elements.Media
                         NativeControl.GradientOrigin = GradientOrigin ?? (global::Avalonia.RelativePoint)AM.RadialGradientBrush.GradientOriginProperty.GetDefaultValue(AM.RadialGradientBrush.GradientOriginProperty.OwnerType);
                     }
                     break;
-                case nameof(Radius):
-                    if (!Equals(Radius, value))
+                case nameof(RadiusX):
+                    if (!Equals(RadiusX, value))
                     {
-                        Radius = (double?)value;
-                        NativeControl.Radius = Radius ?? (double)AM.RadialGradientBrush.RadiusProperty.GetDefaultValue(AM.RadialGradientBrush.RadiusProperty.OwnerType);
+                        RadiusX = (global::Avalonia.RelativeScalar?)value;
+                        NativeControl.RadiusX = RadiusX ?? (global::Avalonia.RelativeScalar)AM.RadialGradientBrush.RadiusXProperty.GetDefaultValue(AM.RadialGradientBrush.RadiusXProperty.OwnerType);
+                    }
+                    break;
+                case nameof(RadiusY):
+                    if (!Equals(RadiusY, value))
+                    {
+                        RadiusY = (global::Avalonia.RelativeScalar?)value;
+                        NativeControl.RadiusY = RadiusY ?? (global::Avalonia.RelativeScalar)AM.RadialGradientBrush.RadiusYProperty.GetDefaultValue(AM.RadialGradientBrush.RadiusYProperty.OwnerType);
                     }
                     break;
 

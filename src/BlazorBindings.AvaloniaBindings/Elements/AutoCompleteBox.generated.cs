@@ -27,12 +27,24 @@ namespace BlazorBindings.AvaloniaBindings.Elements
 
         [Parameter] public Func<string, CancellationToken, Task<IEnumerable<object>>> AsyncPopulator { get; set; }
         /// <summary>
+        /// Gets or sets the caret index
+        /// </summary>
+        [Parameter] public int? CaretIndex { get; set; }
+        /// <summary>
         /// Gets or sets how the text in the text box is used to filter items specified by the <see cref="P:Avalonia.Controls.AutoCompleteBox.ItemsSource" /> property for display in the drop-down.
         /// </summary>
         /// <value>
         /// One of the <see cref="T:Avalonia.Controls.AutoCompleteFilterMode" /> values The default is <see cref="F:Avalonia.Controls.AutoCompleteFilterMode.StartsWith" />.
         /// </value>
         [Parameter] public AC.AutoCompleteFilterMode? FilterMode { get; set; }
+        /// <summary>
+        /// Gets or sets custom content that is positioned on the left side of the text layout box
+        /// </summary>
+        [Parameter] public object InnerLeftContent { get; set; }
+        /// <summary>
+        /// Gets or sets custom content that is positioned on the right side of the text layout box
+        /// </summary>
+        [Parameter] public object InnerRightContent { get; set; }
         /// <summary>
         /// Gets or sets a value indicating whether the drop-down portion of the control is open.
         /// </summary>
@@ -75,6 +87,10 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         /// The maximum height of the drop-down portion of the <see cref="T:Avalonia.Controls.AutoCompleteBox" /> control. The default is <see cref="F:System.Double.PositiveInfinity" />.
         /// </value>
         [Parameter] public double? MaxDropDownHeight { get; set; }
+        /// <summary>
+        /// Gets or sets the maximum number of characters that the <see cref="T:Avalonia.Controls.AutoCompleteBox" /> can accept. This constraint only applies for manually entered (user-inputted) text.
+        /// </summary>
+        [Parameter] public int? MaxLength { get; set; }
         /// <summary>
         /// Gets or sets the minimum delay, after text is typed in the text box before the <see cref="T:Avalonia.Controls.AutoCompleteBox" /> control populates the list of possible matches in the drop-down.
         /// </summary>
@@ -156,11 +172,32 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         NativeControl.AsyncPopulator = AsyncPopulator;
                     }
                     break;
+                case nameof(CaretIndex):
+                    if (!Equals(CaretIndex, value))
+                    {
+                        CaretIndex = (int?)value;
+                        NativeControl.CaretIndex = CaretIndex ?? (int)AC.AutoCompleteBox.CaretIndexProperty.GetDefaultValue(AC.AutoCompleteBox.CaretIndexProperty.OwnerType);
+                    }
+                    break;
                 case nameof(FilterMode):
                     if (!Equals(FilterMode, value))
                     {
                         FilterMode = (AC.AutoCompleteFilterMode?)value;
                         NativeControl.FilterMode = FilterMode ?? (AC.AutoCompleteFilterMode)AC.AutoCompleteBox.FilterModeProperty.GetDefaultValue(AC.AutoCompleteBox.FilterModeProperty.OwnerType);
+                    }
+                    break;
+                case nameof(InnerLeftContent):
+                    if (!Equals(InnerLeftContent, value))
+                    {
+                        InnerLeftContent = (object)value;
+                        NativeControl.InnerLeftContent = InnerLeftContent;
+                    }
+                    break;
+                case nameof(InnerRightContent):
+                    if (!Equals(InnerRightContent, value))
+                    {
+                        InnerRightContent = (object)value;
+                        NativeControl.InnerRightContent = InnerRightContent;
                     }
                     break;
                 case nameof(IsDropDownOpen):
@@ -203,6 +240,13 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         MaxDropDownHeight = (double?)value;
                         NativeControl.MaxDropDownHeight = MaxDropDownHeight ?? (double)AC.AutoCompleteBox.MaxDropDownHeightProperty.GetDefaultValue(AC.AutoCompleteBox.MaxDropDownHeightProperty.OwnerType);
+                    }
+                    break;
+                case nameof(MaxLength):
+                    if (!Equals(MaxLength, value))
+                    {
+                        MaxLength = (int?)value;
+                        NativeControl.MaxLength = MaxLength ?? (int)AC.AutoCompleteBox.MaxLengthProperty.GetDefaultValue(AC.AutoCompleteBox.MaxLengthProperty.OwnerType);
                     }
                     break;
                 case nameof(MinimumPopulateDelay):

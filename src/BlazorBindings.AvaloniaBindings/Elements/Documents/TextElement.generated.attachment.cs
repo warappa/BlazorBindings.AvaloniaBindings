@@ -21,6 +21,18 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                         Avalonia.Controls.Documents.TextElement.SetFontFamily((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontFamily)Convert.ChangeType(value, typeof(global::Avalonia.Media.FontFamily)));
                     }
                 });
+            AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontFeatures",
+                (element, value) => 
+                {
+                    if (value?.Equals(AvaloniaProperty.UnsetValue) == true)
+                    {
+                        element.ClearValue(ACD.TextElement.FontFeaturesProperty);
+                    }
+                    else
+                    {
+                        Avalonia.Controls.Documents.TextElement.SetFontFeatures((Avalonia.Controls.Control)element, (global::Avalonia.Media.FontFeatureCollection)Convert.ChangeType(value, typeof(global::Avalonia.Media.FontFeatureCollection)));
+                    }
+                });
             AttachedPropertyRegistry.RegisterAttachedPropertyHandler("TextElement.FontSize",
                 (element, value) => 
                 {
@@ -96,6 +108,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             return element;
         }
         /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontFeatures" /> property.
+        /// </summary>
+        public static Control TextElementFontFeatures(this Control element, global::Avalonia.Media.FontFeatureCollection value)
+        {
+            element.AttachedProperties["TextElement.FontFeatures"] = value;
+        
+            return element;
+        }
+        /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontSize" /> property.
         /// </summary>
         public static Control TextElementFontSize(this Control element, double value)
@@ -150,6 +171,11 @@ namespace BlazorBindings.AvaloniaBindings.Elements
         [Parameter] public global::Avalonia.Media.FontFamily FontFamily { get; set; }
 
         /// <summary>
+        /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontFeatures" /> property.
+        /// </summary>
+        [Parameter] public global::Avalonia.Media.FontFeatureCollection FontFeatures { get; set; }
+
+        /// <summary>
         /// Defines the <see cref="P:Avalonia.Controls.Documents.TextElement.FontSize" /> property.
         /// </summary>
         [Parameter] public double FontSize { get; set; }
@@ -190,6 +216,14 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     {
                         FontFamily = (global::Avalonia.Media.FontFamily)value;
                         //NativeControl.FontFamilyProperty = FontFamily;
+                    }
+                    break;
+
+                    case nameof(FontFeatures):
+                    if (!Equals(FontFeatures, value))
+                    {
+                        FontFeatures = (global::Avalonia.Media.FontFeatureCollection)value;
+                        //NativeControl.FontFeaturesProperty = FontFeatures;
                     }
                     break;
 
@@ -253,6 +287,15 @@ namespace BlazorBindings.AvaloniaBindings.Elements
                     Avalonia.Controls.Documents.TextElement.SetFontFamily((Avalonia.Controls.Control)parentElement, FontFamily);
                 }
                 
+                if (FontFeatures == Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentElement.GetType()))
+                {
+                    ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontFeaturesProperty);
+                }
+                else
+                {
+                    Avalonia.Controls.Documents.TextElement.SetFontFeatures((Avalonia.Controls.Control)parentElement, FontFeatures);
+                }
+                
                 if (FontSize == Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentElement.GetType()))
                 {
                     ((Avalonia.Controls.Control)parentElement).ClearValue(Avalonia.Controls.Documents.TextElement.FontSizeProperty);
@@ -307,6 +350,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             if (parentType is not null)
             {
                 FontFamily = FontFamily != default ? FontFamily : Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentType);
+                FontFeatures = FontFeatures != default ? FontFeatures : Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentType);
                 FontSize = FontSize != default ? FontSize : Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentType);
                 FontStretch = FontStretch != default ? FontStretch : Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentType);
                 FontStyle = FontStyle != default ? FontStyle : Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
@@ -326,6 +370,7 @@ namespace BlazorBindings.AvaloniaBindings.Elements
             if (parentType is not null)
             {
                 FontFamily = Avalonia.Controls.Documents.TextElement.FontFamilyProperty.GetDefaultValue(parentType);
+                FontFeatures = Avalonia.Controls.Documents.TextElement.FontFeaturesProperty.GetDefaultValue(parentType);
                 FontSize = Avalonia.Controls.Documents.TextElement.FontSizeProperty.GetDefaultValue(parentType);
                 FontStretch = Avalonia.Controls.Documents.TextElement.FontStretchProperty.GetDefaultValue(parentType);
                 FontStyle = Avalonia.Controls.Documents.TextElement.FontStyleProperty.GetDefaultValue(parentType);
