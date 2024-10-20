@@ -1,9 +1,0 @@
-﻿<Label Text="@Title" Padding="10">
-    <TapGestureRecognizer OnTapped="() => ItemSelected.InvokeAsync(ChildContent)" />
-</Label>
-
-@code {
-[Parameter] public string Title { get; set; }
-[Parameter] public RenderFragment ChildContent { get; set; }
-[Parameter] public EventCallback<RenderFragment> ItemSelected { get; set; }
-}
