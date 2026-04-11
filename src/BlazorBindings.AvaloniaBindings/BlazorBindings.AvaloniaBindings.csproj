@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
+		<TargetFrameworks>net10.0</TargetFrameworks>
 		<Title>Avalonia binding for Blazor</Title>
 		<Description>Avalonia Blazor Bindings enables using Blazor syntax in .razor files to build native Avalonia apps.</Description>
 		<PackageTags>blazor;blazorbindings</PackageTags>

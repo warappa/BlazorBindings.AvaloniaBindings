@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0</TargetFrameworks>
+		<TargetFrameworks>net10.0</TargetFrameworks>
 		<Title>Avalonia Blazor Bindings Core Runtime</Title>
 		<Description>Common logic for using Blazor to target native renderers. For Avalonia app projects use the BlazorBindings.AvaloniaBindings package.</Description>
 		<PackageTags>blazor;blazorbindings</PackageTags>
